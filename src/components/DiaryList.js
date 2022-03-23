@@ -50,7 +50,8 @@ function DiaryList({ diaryList = [] }) {
         }
 
         const copyList = JSON.parse(JSON.stringify(diaryList));
-        const filteredList = (filter==="all") ? copyList : copyList.filter((it)=>filterCallBack(it));
+        const filteredList = 
+            (filter === "all") ? copyList : copyList.filter((it) => filterCallBack(it));
 
         const sortedList = filteredList.sort(compare);
         return sortedList;
@@ -82,7 +83,6 @@ function DiaryList({ diaryList = [] }) {
             </div>
 
             {getProcessedDiaryList().map((it) => (
-                // <div key={it.id}>{it.content} {it.emotion}</div>
                 <DiaryItem key={it.id} {...it} />
             ))}
         </div>

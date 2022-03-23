@@ -10,10 +10,11 @@ import Diary from './Pages/Diary'
 const reducer = (state, action) => {
   let newState = [];
   switch(action.type) {
-    case "INIT":
+    case "INIT": {
       return action.data;
+    }
     case "CREATE": {
-      newState = [...action.data, ...state];
+      newState = [action.data, ...state];
       break;
     }
     case "REMOVE": {
@@ -68,18 +69,19 @@ const dummyData = [
 
 function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
-
   const dataId = useRef(0);
-  console.log(new Date().getTime());
 
   // CREATE
   const onCreate = (date, content, emotion) => {
-    dispatch({type: "CREATE", data: {
-      id: dataId.current,
-      data: new Date(date).getTime(),
-      content,
-      emotion,
-    }})
+    dispatch({
+      type: "CREATE", 
+      data: {
+        id: dataId.current,
+        date: new Date(date).getTime(),
+        content,
+        emotion,
+      },
+    });
     dataId.current += 1;
   };
 
