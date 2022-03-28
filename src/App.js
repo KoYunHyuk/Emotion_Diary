@@ -6,6 +6,7 @@ import Home from './Pages/Home'
 import New from './Pages/New'
 import Edit from './Pages/Edit'
 import Diary from './Pages/Diary'
+import { useEffect } from 'react';
 
 const reducer = (state, action) => {
   let newState = [];
@@ -28,6 +29,8 @@ const reducer = (state, action) => {
     default: 
       return state;
   }
+
+  localStorage.setItem('diary', JSON.stringify(newState));
   return newState;
 }
 
@@ -68,8 +71,22 @@ const dummyData = [
 ]
 
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  const [data, dispatch] = useReducer(reducer, []);
   const dataId = useRef(0);
+
+  useEffect(()=>{
+    const localData = localStorage.getItem("diary");
+    if(localData){
+      const diaryList = JSON.parse(localData).sort((a, b) => parseInt(b.id) - parseInt(a.id));
+      dataId.current = parseInt(diaryList[0].id + 1);
+
+      console.log(diaryList);
+      console.log(dataId);
+  
+      dispatch({type: "INIT", data: diaryList});
+    }
+
+  }, []);
 
   // CREATE
   const onCreate = (date, content, emotion) => {
