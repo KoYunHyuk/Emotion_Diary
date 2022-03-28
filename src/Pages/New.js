@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import DiaryEditor from '../components/DiaryEditor'
 
 function New() {
+    useEffect(() => {
+        const titleElement = document.getElementsByTagName('title')[0];
+        titleElement.innerHTML = `새 일기`;
+    }, []);
 
     return (
         <div>
