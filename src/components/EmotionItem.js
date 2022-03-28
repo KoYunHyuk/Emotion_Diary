@@ -16,4 +16,4 @@ function EmotionItem({emotion_id, emotion_img, emotion_descript, onClick, isSele
     )
 }
 
-export default EmotionItem
+export default React.memo(EmotionItem)
